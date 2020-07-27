@@ -1,0 +1,34 @@
+<h2>All orders:</h2>
+<div class="table-responsive">
+	<table class="table table-hover table-bordered text-center">
+	  <thead class="thead-dark">
+	    <tr>
+	      <th scope="col">#</th>
+	      <th>Name</th>
+	 	  <th>Phone</th>
+	 	  <th>Address</th>
+	 	  <th>Order</th>
+	 	  <th>Created at</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+		<% Order.all.reverse.each do |line| %>
+			<tr>
+				<th><%= line.id %></th>
+				<th><%= line.name %></th>
+				<th><%= line.phone %></th>
+				<th><%= line.address %></th>
+				<th><%=	line.order %></th>
+				<th><%= line.created_at%></th>
+			</tr>
+		<% end %>
+	  </tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+  	
+  	$(function(){
+  		order_complete();
+  	});
+ </script>

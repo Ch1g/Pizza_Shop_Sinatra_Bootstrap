@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Don Pizza</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	    <script src="/vendor/jquery-1.9.1.min.js"></script>
+	    <!-- Include all compiled plugins (below), or include individual files as needed -->
+	    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+	    <script src="app.js"></script>
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="jumbotron jumbotron-fluid">
+		  <div class="container">
+		    <h1 class="display-4">DON PIZZA</h1>
+		    <p class="lead">Welcome, brother! You have good taste if you are here!</p>
+		  </div>
+		</div>
+		<div class="container">
+
+			<!-- Static navbar -->
+			<nav class="navbar fixed-bottom navbar-expand-lg navbar-dark bg-dark py-1" role="navigation">
+			  <div class="navbar-header">
+			    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+			      <span class="navbar-toggler-icon"></span>
+			    </button>
+			    <a class="navbar-brand" href="/">Don Pizza</a>
+			  </div>
+			  <div class="collapse navbar-collapse">
+			    <ul class="navbar-nav mr-auto">
+			      <li class="nav-item"><a class="nav-link" href="/pizzas">Our pizzas</a></li>
+			    </ul>
+			    <ul class="navbar-nav mr-0">
+			    	<li class="nav-item"><a class="nav-link" id="orders_price"></a>
+			    	<li class="nav-item">
+			    		<form action="/cart" method="POST">
+			    			<input id="orders_input" name="order" type="hidden"/>
+			    			<input id="orders_button" type="submit" class="btn btn-outline-light" onclick="return cart_check()" value="Cart (0)"/>
+			    		</form>
+			    	</li>
+			    </ul>
+			  </div><!--/.nav-collapse -->
+			</nav>
+
+			<div>
+			      <%if @error && @error.length > 0 then %>
+			          <div class="alert alert-danger"><%=@error%></div>
+			      <% end %>
+			      <%= yield %>
+			</div>
+
+	</div>
+
+
+  </body>
+
+  <script type="text/javascript">
+  	
+  	$(function(){
+  		update_orders_input();
+  		update_orders_button();
+  		update_orders_cost();
+  	});
+  </script>
+</html>

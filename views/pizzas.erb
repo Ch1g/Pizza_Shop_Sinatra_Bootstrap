@@ -1,0 +1,35 @@
+  <div class="container pb-5">
+    <div class="row justify-content-center">
+      <!-- HTML constructor (Product table output) -->
+      <% Product.all.each do |line| %>
+      <div class="col-3 mx-auto mb-auto">
+        <div>
+          <img class="img-fluid rounded" src="<%= line.path_to_image %>"/>
+          <h5 class="text-center"><%=line.title%></h5>
+        </div>
+
+        <div class="row justify-content-around">
+          <h6 class="col-md">Size: <%=line.size.to_i%> cm.</h6>
+          <h6 class="col-md">Price: <%=line.price.to_i%> rub.</h6>
+        </div>
+
+        <div class="text-center">
+          <p>
+            <%=line.description%>
+          </p>
+          <ul class="list-group pb-2">
+          <%= line.is_best_offer ? '<li class="list-group-item list-group-item-dark">Best offer!</li>' : ()%>
+          <%= line.is_spicy ? '<li class="list-group-item list-group-item-danger">Spicy</li>' : ()%>
+          <%= line.is_veg ? '<li class="list-group-item list-group-item-success">Vegan</li>' : ()%>
+          </ul>
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-sm btn-success" onclick="add_to_cart(<%= line.id %>, <%= line.price %>)">Add to cart</button>
+        </div>
+
+      </div>
+      <% end %>
+      <!-- End HTML constructor (Product table output) -->
+    </div>
+  </div>

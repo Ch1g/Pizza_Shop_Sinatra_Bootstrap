@@ -1,0 +1,70 @@
+<h2 class="col-xs">Cart</h2>
+<div id="cart_content">
+	<div class="pb-4">
+		<div class="table-responsive">
+			<table class="table table-hover table-bordered text-center">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">Order</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+					<% @order.each do |key, value|%>
+					<% line = Product.find(key) %>
+						<tr>
+					    	<td>
+							    <div class="row justify-content-center">
+							    	<div class="col-3 mx-auto mb-auto">
+								        <div>
+								          <img class="img-fluid rounded" src="<%= line.path_to_image %>"/>
+								        </div>
+									</div>
+								        
+									<div class="col-3 mx-auto mb-auto">
+								        <h5 class="text-center"><%=line.title%></h5>								
+								        <h6 class="col-md">Size: <%=line.size.to_i%> cm.</h6>
+								        <h6 class="col-md">Price: <%=line.price.to_i%> rub.</h6>
+								        <div class="text-center">
+								        <p>
+								        	<%=line.description%>
+								       	</p>
+								        <ul class="list-group pb-2">
+								        	<%= line.is_best_offer ? '<li class="list-group-item list-group-item-dark">Best offer!</li>' : ()%>
+								        	<%= line.is_spicy ? '<li class="list-group-item list-group-item-danger">Spicy</li>' : ()%>
+								        	<%= line.is_veg ? '<li class="list-group-item list-group-item-success">Vegan</li>' : ()%>
+								        </ul>
+								        </div>
+									</div>
+								    	
+									<div class="col-3 mx-auto mb-auto">
+								        <h5>Count: <%= value %> pcs.</h5>
+								        <h5>Cost: <%= line.price * value %> rub.</h5>
+									</div>
+								</div>
+					  		</td>
+						</tr>
+					<% end %>
+			</tbody>
+			</table>
+		</div>
+	</div>
+	<form action="/order" method="POST" class="pb-5">
+		<div class="form-group">
+			<label for="name_input">Enter your name:</label>
+			<input id="name_input" name="orders[name]" type="text"/>
+		</div>
+		<div class="form-group">
+			<label for="addr_input">Enter address:</label>
+			<input id="addr_input" name="orders[address]" type="text"/>
+		</div>
+		<div class="form-group">
+			<label for="phone_input">Enter your phone:</label>
+			<input id="phone_input" name="orders[phone]" type="tel" pattern="+7-[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9][2]">
+			<small>Format: +7-***-***-**-**</small>
+		</div>
+		<input name="orders[order]" type="hidden" value='<%= @order.transform_keys {|key| key = Product.find(key).title}.inspect %>'/>
+		<input type="submit" class="btn btn-outline-dark" value="Order pizza" onclick="order_complete();" />
+		<button class="btn btn-danger" onclick="return cancel_order();">Cancel</button>
+		</div>
+	</form>
+</div>
