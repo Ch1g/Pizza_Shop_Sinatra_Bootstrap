@@ -3,7 +3,6 @@ require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
 require 'sinatra/activerecord'
-require './decoder.rb'
 
 class Product < ActiveRecord::Base
 
